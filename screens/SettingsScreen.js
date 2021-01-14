@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-const Contact = () => {
+const SettingsScreen = () => {
   return (
     <View style={styles.center}>
-      <Text>This is the achievement screen</Text>
+      <Text>This is the settings screen.</Text>
     </View>
   );
 };
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Contact;
+export default SettingsScreen;

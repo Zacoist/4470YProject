@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-const MainScreen = () => {
+const CreditsScreen = () => {
   return (
     <View style={styles.center}>
-      <Text>This is the notification screen</Text>
+      <Text>This is the credits screen.</Text>
     </View>
   );
 };
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainScreen;
+export default CreditsScreen;

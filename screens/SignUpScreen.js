@@ -1,11 +1,14 @@
 import React from "react";
 import { View, Button, StyleSheet, Text } from "react-native";
 
-const MainScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation }) => {
   return (
     <View style={styles.center}>
-      <Text>This is the home screen.</Text>
-      <Button title="Input" onPress={() => navigation.navigate("Input")} />
+      <Text>This is the sign up screen.</Text>
+      <Button
+        title="Complete Sign Up"
+        onPress={() => navigation.navigate("Main")}
+      />
     </View>
   );
 };
@@ -19,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainScreen;
+export default SignUpScreen;
