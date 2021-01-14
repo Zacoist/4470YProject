@@ -1,10 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-const Contact = () => {
+const InputScreen = () => {
   return (
     <View style={styles.center}>
-      <Text>This is the input screen</Text>
+      <Text>This is the input screen.</Text>
     </View>
   );
 };
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Contact;
+export default InputScreen;

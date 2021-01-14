@@ -1,29 +1,42 @@
 import React from "react";
-
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { MainStackNavigator } from "./StackNavigator";
 
-import HomePage from "../screens/HomePage";
-import MainScreen from "../screens/MainScreen";
-import InputScreen from "../screens/InputScreen";
-import Notification from "../screens/Notification";
-import LeaderBoard from "../screens/LeaderBoard";
-import Achievements from "../screens/Achievements";
-import Setting from "../screens/Setting";
-import Credit from "../screens/Credit";
+import {
+  AchievementsStackNavigator,
+  CreditsStackNavigator,
+  DrawerContent,
+  HomeStackNavigator,
+  InputStackNavigator,
+  LeaderboardStackNavigator,
+  MainStackNavigator,
+  NotificationsStackNavigator,
+  SettingsStackNavigator,
+} from "./StackNavigator";
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator initialRouteName="HomePage">
-      <Drawer.Screen name="Main Screen" component={MainStackNavigator} />
-      <Drawer.Screen name="InputScreen" component={InputScreen} />
-      <Drawer.Screen name="Notification" component={Notification} />
-      <Drawer.Screen name="LeaderBoard" component={LeaderBoard} />
-      <Drawer.Screen name="Achievements" component={Achievements} />
-      <Drawer.Screen name="Setting" component={Setting} />
-      <Drawer.Screen name="Credit" component={Credit} />
+    <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+      {/* add screens here that u want to have drawer navigator functionality */}
+      <Drawer.Screen
+        name="Home"
+        component={HomeStackNavigator}
+        options={{ swipeEnabled: false }}
+      />
+      <Drawer.Screen name="Main" component={MainStackNavigator} />
+      <Drawer.Screen name="Input" component={InputStackNavigator} />
+      <Drawer.Screen
+        name="Notifications"
+        component={NotificationsStackNavigator}
+      />
+      <Drawer.Screen name="Leaderboard" component={LeaderboardStackNavigator} />
+      <Drawer.Screen
+        name="Achievements"
+        component={AchievementsStackNavigator}
+      />
+      <Drawer.Screen name="Settings" component={SettingsStackNavigator} />
+      <Drawer.Screen name="Credits" component={CreditsStackNavigator} />
     </Drawer.Navigator>
   );
 };

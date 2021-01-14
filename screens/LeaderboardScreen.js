@@ -1,12 +1,10 @@
-// ./screens/Contact.js
-
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
-const Contact = () => {
+const LeaderboardScreen = () => {
   return (
     <View style={styles.center}>
-      <Text>This is the credit screen</Text>
+      <Text>This is the leaderboard screen.</Text>
     </View>
   );
 };
@@ -20,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Contact;
+export default LeaderboardScreen;
