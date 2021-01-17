@@ -7,7 +7,7 @@ import {
   Text,
   TextInput,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { AntDesign, Feather } from "@expo/vector-icons";
 
 const LoginScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
