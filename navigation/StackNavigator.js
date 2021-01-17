@@ -331,7 +331,7 @@ const DrawerContent = (props) => {
         label="Input"
         labelStyle={{ color: "#000000" }}
         onPress={() => props.navigation.navigate("Input")}
-        icon={() => <AntDesign name="plus" color="black" size={16} />}
+        icon={() => <Feather name="plus-square" color="black" size={16} />}
       />
       <DrawerItem
         label="Notifications"
