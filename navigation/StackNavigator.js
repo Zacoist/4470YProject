@@ -22,6 +22,35 @@ import NotificationsScreen from "../screens/NotificationsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 
+import firebase from "../firebase";
+var fullname;
+
+const getName = () => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      // User is signed in.
+      //Get the current userID
+      var userId = firebase.auth().currentUser.uid;
+      //Get the user data
+      return firebase
+        .database()
+        .ref("/users/" + userId)
+        .once("value")
+        .then(function (snapshot) {
+          //Do something with your user data located in snapshot
+          try {
+            fullname = snapshot.val().fullname;
+          } catch (err) {
+            //You'll see the msg when signing up becaues of the delay it take when creating fullname record in database
+            console.log("Error:", err);
+          }
+        });
+    } else {
+      // No user is signed in.
+    }
+  });
+};
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 /* add this to screen that need burger option */
@@ -305,6 +334,7 @@ const SettingsStackNavigator = ({ navigation }) => {
 
 //Contents of drawer
 const DrawerContent = (props) => {
+  getName();
   return (
     <DrawerContentScrollView {...props}>
       <Block backgroundColor="#56C568">
@@ -316,9 +346,9 @@ const DrawerContent = (props) => {
             alignItems: "center",
           }}
         />
-        {/* username */}
+        {/* fullname */}
         <Text title style={{ color: "#FFFFFF", padding: 10 }}>
-          Firstname Lastname
+          {fullname}
         </Text>
       </Block>
       <DrawerItem
