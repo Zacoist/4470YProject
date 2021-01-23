@@ -8,18 +8,52 @@ import {
   TextInput,
 } from "react-native";
 import { AntDesign, Feather } from "@expo/vector-icons";
+import firebase from "../firebase";
 
 const SignUpScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
+    //variables
+    fullname: "",
+    address: "",
     email: "",
     password: "",
     confirm_password: "",
-    check_textInputChange: false,
+
+    //booleans for icon use
+    check_nameInputChange: false,
+    check_emailInputChange: false,
+
     secureTextEntry: true,
     confirm_secureTextEntry: true,
   });
 
-  const textInputChange = (val) => {
+  //Set fullname var and checks if its valid
+  const nameInputChange = (val) => {
+    if (val.length !== 0) {
+      setData({
+        ...data,
+        fullname: val,
+        check_nameInputChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        fullname: val,
+        check_nameInputChange: false,
+      });
+    }
+  };
+
+  //Set address var and checks if its valid
+  const addressInputChange = (val) => {
+    setData({
+      ...data,
+      address: val,
+    });
+  };
+
+  //Set email var and checks if its valid
+  const emailInputChange = (val) => {
     if (val.length !== 0) {
       setData({
         ...data,
@@ -35,6 +69,7 @@ const SignUpScreen = ({ navigation }) => {
     }
   };
 
+  //Set password var
   const handlePasswordChange = (val) => {
     setData({
       ...data,
@@ -42,12 +77,15 @@ const SignUpScreen = ({ navigation }) => {
     });
   };
 
+  //Set confirm_password var
   const handleConfirmPasswordChange = (val) => {
     setData({
       ...data,
       confirm_password: val,
     });
   };
+
+  //Function that changes the password from astericks for the password
   const updateSecureTextEntry = () => {
     setData({
       ...data,
@@ -55,11 +93,24 @@ const SignUpScreen = ({ navigation }) => {
     });
   };
 
+  //Function that changes the password from astericks for the confirm password
   const updateConfirmSecureTextEntry = () => {
     setData({
       ...data,
       confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
+  };
+
+  const writeUserData = (userID, fullname, address, email, password) => {
+    firebase
+      .database()
+      .ref("users/" + userID)
+      .set({
+        fullname: fullname,
+        address: address,
+        email: email,
+        password: password,
+      });
   };
 
   return (
@@ -72,9 +123,9 @@ const SignUpScreen = ({ navigation }) => {
           placeholder="Firstname Lastname"
           style={styles.textInput}
           autoCapitalize="none"
-          onChangeText={(val) => textInputChange(val)}
+          onChangeText={(val) => nameInputChange(val)}
         />
-        {data.check_textInputChange ? (
+        {data.check_nameInputChange ? (
           <Feather name="check-circle" color="green" size={20} />
         ) : null}
       </View>
@@ -96,7 +147,7 @@ const SignUpScreen = ({ navigation }) => {
           placeholder="Select a location"
           style={styles.textInput}
           autoCapitalize="none"
-          onChangeText={(val) => textInputChange(val)}
+          onChangeText={(val) => addressInputChange(val)}
         />
         <Feather name="map" color="grey" size={20} />
       </View>
@@ -118,9 +169,9 @@ const SignUpScreen = ({ navigation }) => {
           placeholder="Your Email"
           style={styles.textInput}
           autoCapitalize="none"
-          onChangeText={(val) => textInputChange(val)}
+          onChangeText={(val) => emailInputChange(val)}
         />
-        {data.check_textInputChange ? (
+        {data.check_emailInputChange ? (
           <Feather name="check-circle" color="green" size={20} />
         ) : null}
       </View>
@@ -185,7 +236,49 @@ const SignUpScreen = ({ navigation }) => {
       {/* sign in & sign out buttons */}
       <View style={styles.button}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Main")}
+          onPress={() =>
+            firebase
+              .auth()
+              .createUserWithEmailAndPassword(data.email, data.password)
+              .then(() => {
+                //login
+                firebase
+                  .auth()
+                  .signInWithEmailAndPassword(data.email, data.password)
+                  .then((userCredential) => {
+                    // Signed in
+                    var user = userCredential.user;
+                    //write to database
+                    writeUserData(
+                      firebase.auth().currentUser.uid,
+                      data.fullname,
+                      data.address,
+                      data.email,
+                      data.password
+                    );
+                    console.log("User account created & signed in!");
+                    //go to main screen when finish signing up
+                    navigation.navigate("Main");
+                  })
+                  //failed to login
+                  .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(error.code);
+                  });
+              })
+              //failed to sign up
+              .catch((error) => {
+                if (error.code === "auth/email-already-in-use") {
+                  console.log("That email address is already in use!");
+                }
+
+                if (error.code === "auth/invalid-email") {
+                  console.log("That email address is invalid!");
+                }
+                console.error(error);
+              })
+          }
           style={[
             styles.signIn,
             {

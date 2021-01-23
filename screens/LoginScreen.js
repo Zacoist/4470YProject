@@ -8,15 +8,21 @@ import {
   TextInput,
 } from "react-native";
 import { AntDesign, Feather } from "@expo/vector-icons";
+import firebase from "../firebase";
 
 const LoginScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
+    //variables
     email: "",
     password: "",
+
+    //booleans for icon use
     check_textInputChange: false,
+
     secureTextEntry: true,
   });
 
+  //Set email var and checks if its valid
   const textInputChange = (val) => {
     if (val.length !== 0) {
       setData({
@@ -33,6 +39,7 @@ const LoginScreen = ({ navigation }) => {
     }
   };
 
+  //Set password var
   const handlePasswordChange = (val) => {
     setData({
       ...data,
@@ -40,6 +47,7 @@ const LoginScreen = ({ navigation }) => {
     });
   };
 
+  //Function that changes the password from astericks for the password
   const updateSecureTextEntry = () => {
     setData({
       ...data,
@@ -100,7 +108,22 @@ const LoginScreen = ({ navigation }) => {
       {/* sign in & sign out buttons */}
       <View style={styles.button}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Main")}
+          onPress={() =>
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(data.email, data.password)
+              .then((userCredential) => {
+                // Signed in
+                console.log("SIGNED IN");
+                //go to main screen when finish logging in
+                navigation.navigate("Main");
+              })
+              .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(error.code);
+              })
+          }
           style={[
             styles.signIn,
             {

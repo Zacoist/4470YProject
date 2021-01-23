@@ -13,7 +13,7 @@ import { AntDesign } from "@expo/vector-icons";
 import CompostInput from "../components/InputScreen/CompostInput";
 
 const InputScreen = () => {
-  const [inputItemList, setInputItemList] = useState([{ key: 0, value: 0 }]);
+  const [inputItemList, setInputItemList] = useState([{ key: "0", value: 0 }]);
   const [itemID, setItemID] = useState(1);
 
   const addItemHandler = (weight) => {
