@@ -16,11 +16,11 @@ const InputScreen = () => {
   const [inputItemList, setInputItemList] = useState([{ key: "0", value: 0 }]);
   const [itemID, setItemID] = useState(1);
 
-  const addItemHandler = (weight) => {
+  const addItemHandler = (item) => {
     id = itemID;
     setInputItemList((currentItems) => [
       ...currentItems,
-      { key: itemID, value: weight },
+      { key: itemID.toString(), value: item },
     ]);
     setItemID(itemID + 1);
   };
@@ -31,8 +31,8 @@ const InputScreen = () => {
     });
   };
 
-  const changeWeightListHandler = (weight) => {
-    setWeightList((currentWeights) => [...currentWeights, weight]);
+  const changeInputItemListHandler = (item) => {
+    setInputItemList((currentItems) => [...currentItems, item]);
   };
 
   return (
@@ -44,7 +44,7 @@ const InputScreen = () => {
           <CompostInput
             id={itemData.item.key}
             onRemoveItem={removeItemHandler}
-            onAddWeight={changeWeightListHandler}
+            onAddItem={changeInputItemListHandler}
           />
         </View>
       )}
