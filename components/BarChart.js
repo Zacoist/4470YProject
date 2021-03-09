@@ -13,7 +13,7 @@ export default class BarChart extends React.PureComponent {
   render() {
     // Dimensions
     const SVGHeight = 250;
-    const SVGWidth = 350;
+    const SVGWidth = 400;
     const graphHeight = SVGHeight - 2 * GRAPH_MARGIN;
     const graphWidth = SVGWidth - 2 * GRAPH_MARGIN;
     const data = this.props.data;
