@@ -1,0 +1,170 @@
+{
+    "Uplands": {
+        "input": 3,
+        "carbon_foot_print": "n/a"
+    },
+    "Sunningdale": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Fox Hollow": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Southcrest": {
+        "input": 4,
+        "carbon_foot_print": "n/a"
+    },
+    "Stoney Creek": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "North London": {
+        "input": 3,
+        "carbon_foot_print": "n/a"
+    },
+    "Central London": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "East London": {
+        "input": 4,
+        "carbon_foot_print": "n/a"
+    },
+    "Hamilton Road": {
+        "input": 3,
+        "carbon_foot_print": "n/a"
+    },
+    "South London": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Woodhull": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Glen Cairn": {
+        "input": 3,
+        "carbon_foot_print": "n/a"
+    },
+    "Westmount": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Highland": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Bostwick": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Talbot": {
+        "input": 3,
+        "carbon_foot_print": "n/a"
+    },
+    "Lambeth": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Old Victoria": {
+        "input": 5,
+        "carbon_foot_print": "n/a"
+    },
+    "Sharon Creek": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Fanshawe": {
+        "input": 4,
+        "carbon_foot_print": "n/a"
+    },
+    "Airport": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Huron Heights": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Crumlin": {
+        "input": 5,
+        "carbon_foot_print": "n/a"
+    },
+    "Argyle": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Glanworth": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Tempo": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Bradley": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Jackson": {
+        "input": 3,
+        "carbon_foot_print": "n/a"
+    },
+    "Masonville": {
+        "input": 10,
+        "carbon_foot_print": "n/a"
+    },
+    "Stoneybrook": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Byron": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "River Bend": {
+        "input": 4,
+        "carbon_foot_print": "n/a"
+    },
+    "Oakridge": {
+        "input": 5,
+        "carbon_foot_print": "n/a"
+    },
+    "West London": {
+        "input": 3,
+        "carbon_foot_print": "n/a"
+    },
+    "Medway": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Highbury": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Carling": {
+        "input": 4,
+        "carbon_foot_print": "n/a"
+    },
+    "Longwoods": {
+        "input": 5,
+        "carbon_foot_print": "n/a"
+    },
+    "White Oaks": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Westminster": {
+        "input": 1,
+        "carbon_foot_print": "n/a"
+    },
+    "Brockley": {
+        "input": 2,
+        "carbon_foot_print": "n/a"
+    },
+    "Hyde Park": {
+        "input": 5,
+        "carbon_foot_print": "n/a"
+    }
+}

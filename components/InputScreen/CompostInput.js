@@ -11,10 +11,11 @@ import {
 import CompostItemQuantifier from "./CompostItemQuantifier";
 
 const CompostInput = (props) => {
-  const [item, setItem] = useState("0");
+  const [weight, setWeight] = useState(0);
 
-  const itemInputHandler = (enteredItem) => {
-    setItem(enteredItem);
+  const weightInputHandler = (enteredWeight) => {
+    setWeight(enteredWeight);
+    props.onAddWeight(weight);
   };
 
   return (
@@ -24,7 +25,7 @@ const CompostInput = (props) => {
           <Text style={{ fontWeight: "bold" }}>Item</Text>
           <TextInput
             placeholder={"e.g. Apple. Banana Peel"}
-            onChangeText={itemInputHandler}
+            onChangeText={weightInputHandler}
             style={styles.input}
           />
         </View>

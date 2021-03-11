@@ -58,7 +58,7 @@ const LeaderboardScreen = () => {
       ListFooterComponent={
         <View style={styles.userScore}>
           <LeaderboardEntry
-            name="Name"
+            name="You"
             score={getScore()}
             rank={getRank()}
             isUser={true}

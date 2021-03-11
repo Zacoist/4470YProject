@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Button, Text, StyleSheet, Touchable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { AntDesign } from "@expo/vector-icons";
 
 const CompostItemQuantifier = (props) => {
   const [quantity, setQuantity] = useState(1);
@@ -25,13 +24,13 @@ const CompostItemQuantifier = (props) => {
             style={styles.arrowButton}
             onPress={incrementQuantity}
           >
-            <AntDesign name="up" style={styles.arrowUpIcon} />
+            <Text style={styles.arrowUpIcon}>ʌ</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.arrowButton}
             onPress={decrementQuantity}
           >
-            <AntDesign name="down" style={styles.arrowDownIcon} />
+            <Text style={styles.arrowDownIcon}>v</Text>
           </TouchableOpacity>
         </View>
       </View>

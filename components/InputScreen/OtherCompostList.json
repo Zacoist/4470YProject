@@ -1,0 +1,50 @@
+[
+    {
+        "key":"0",
+        "name":"Leaves",
+        "compostType":"brown",
+        "image":"https://static.wikia.nocookie.net/warehouse-13-artifact-database/images/1/13/Leaf-pile.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"1",
+        "name":"Grass",
+        "compostType":"green",
+        "image":"http://assets.stickpng.com/images/580b585b2edbce24c47b26bb.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },
+    {
+        "key":"2",
+        "name":"Tea Bag",
+        "compostType":"brown",
+        "image":"http://assets.stickpng.com/thumbs/5a8efd2db15d5c051b36902f.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"3",
+        "name":"Eggshell",
+        "compostType":"green",
+        "image":"http://assets.stickpng.com/images/5c570df78c21c9029a0f48bd.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"4",
+        "name":"Cardboard",
+        "compostType":"brown",
+        "image":"https://www.pngkey.com/png/full/424-4245261_chinese-takeout-boxes-wholesale-chinese-take-out-boxes.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"5",
+        "name":"Paper",
+        "compostType":"brown",
+        "image":"https://i.pinimg.com/originals/78/28/2c/78282c1c5c2af943c8da6815e652fb1c.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    }
+]

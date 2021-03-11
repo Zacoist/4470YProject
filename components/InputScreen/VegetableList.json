@@ -1,0 +1,50 @@
+[
+    {
+        "key":"0",
+        "name":"Celery",
+        "compostType":"green",
+        "image":"https://purepng.com/public/uploads/large/purepng.com-celery-sticksvegetables-celery-celery-sticks-941524724520jtqdu.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"1",
+        "name":"Carrots",
+        "compostType":"green",
+        "image":"https://freepngimg.com/thumb/carrot/22147-8-carrot-cutting-pieces.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },
+    {
+        "key":"2",
+        "name":"Lettuce",
+        "compostType":"brown",
+        "image":"https://www.pngkey.com/png/full/97-979854_romaine-lettuce-png-lettuce-png.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"3",
+        "name":"Cabbage",
+        "compostType":"green",
+        "image":"https://freepngimg.com/thumb/cabbage/6-cabbage-png-image.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"4",
+        "name":"Onion",
+        "compostType":"green",
+        "image":"https://purepng.com/public/uploads/large/purepng.com-brown-onionvegetablesonion-bulb-onion-941524684586ji4ib.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"5",
+        "name":"Corn",
+        "compostType":"brown",
+        "image":"https://i.pinimg.com/originals/1f/dc/fb/1fdcfb647bedf99ffe755b01c455a94b.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    }
+]
