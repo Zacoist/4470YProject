@@ -1,0 +1,51 @@
+[
+    {
+        "key":"0",
+        "name":"Apple",
+        "compostType":"green",
+        "image":"https://pngimg.com/uploads/apple/apple_PNG12405.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"1",
+        "name":"Banana",
+        "compostType":"green",
+        "image":"https://i.dlpng.com/static/png/6368971_preview.png",
+        "weight": 120,
+        "methaneWeight": 7.8
+    },
+    {
+        "key":"2",
+        "name":"Orange",
+        "compostType":"green",
+        "image":"https://pngimg.com/uploads/orange/orange_PNG789.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"3",
+        "name":"Pear",
+        "compostType":"green",
+        "image":"https://pngimg.com/uploads/pear/pear_PNG3466.png",
+        "weight": 180,
+        "methaneWeight": 11.7
+
+    },    
+    {
+        "key":"4",
+        "name":"Strawberry",
+        "compostType":"green",
+        "image":"https://pngimg.com/uploads/strawberry/strawberry_PNG2636.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    },    
+    {
+        "key":"5",
+        "name":"Pineapple",
+        "compostType":"green",
+        "image":"https://www.freepnglogos.com/uploads/pineapple-png/pineapple-png-pineapple-png-image-download-10.png",
+        "weight": 100,
+        "methaneWeight": 6.5
+    }
+]
