@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 
 //LIBRARIES
 import Svg, { G, Path, Circle } from "react-native-svg";
@@ -40,6 +40,10 @@ const Map = (props) => {
       districtPaths.map((path, i) => {
         const curDistrict = DISTRICTS[i].properties.GIS_Featur;
 
+        if (Object.keys(data).length === 0) {
+          return null;
+        }
+
         const curDistrictData = data.find(
           (district) => district.name === curDistrict
         )["data"];
@@ -58,15 +62,23 @@ const Map = (props) => {
         );
       })
     );
-  }, []);
+  }, [data]);
 
-  return (
-    <View style={styles.container}>
-      <Svg width={dimensions.width} height={dimensions.height / 2}>
-        {districtList.map((x) => x)}
-      </Svg>
-    </View>
-  );
+  if (Object.keys(data).length === 0) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator />
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <Svg width={dimensions.width} height={dimensions.height / 2}>
+          {districtList.map((x) => x)}
+        </Svg>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

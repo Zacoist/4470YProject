@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
+  ActivityIndicator,
   View,
   Button,
   StyleSheet,
@@ -10,7 +11,6 @@ import {
   Card,
   TouchableOpacity,
 } from "react-native";
-
 import BarChart from "../components/BarChart";
 
 //worldmap
@@ -23,25 +23,86 @@ import Container from "../components/Container";
 import * as d3 from "d3";
 
 //DATA
-import districtData_raw from "../assets/data/district_data.json";
+// import districtData_raw from "../assets/data/district_data.json";
+
+import firebase from "../firebase";
+
+// function MyComponent() {
+//   const [error, setError] = useState(null);
+//   const [isLoaded, setIsLoaded] = useState(false);
+//   const [items, setItems] = useState([]);
+
+//   // Note: the empty deps array [] means
+//   // this useEffect will run once
+//   // similar to componentDidMount()
+//   useEffect(() => {
+//     fetch(
+//       "https://compostapp-28145-default-rtdb.firebaseio.com/district_data.json"
+//     )
+//       .then((res) => res.json())
+//       .then(
+//         (result) => {
+//           // var districtData = [];
+//           setIsLoaded(true);
+//           setItems(result);
+//           console.log(items);
+//         },
+//         // instead of a catch() block so that we don't swallow
+//         // exceptions from actual bugs in components.
+//         (error) => {
+//           setIsLoaded(true);
+//           setError(error);
+//         }
+//       );
+//   }, []);
+//   if (error) {
+//     console.log(error);
+//   } else if (!isLoaded) {
+//     console.log("not loaded");
+//   } else {
+//     console.log("error");
+//   }
+// }
+
+// fetch("https://compostapp-28145-default-rtdb.firebaseio.com/district_data.json")
+//   .then((response) => response.json())
+//   .then((data) => console.log(data));
 
 const MainScreen = ({ navigation }) => {
-  const dimensions = Dimensions.get("window");
-
+  const [rawDistrictData, setRawDistrictData] = useState({});
   const [stat, setStat] = useState("input");
 
+  useEffect(() => {
+    fetch(
+      "https://compostapp-28145-default-rtdb.firebaseio.com/district_data.json"
+    )
+      .then((response) => response.json())
+      .then(
+        (responseJson) => {
+          setRawDistrictData(responseJson);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  }, []);
+
+  const userID = firebase.auth().currentUser.uid;
+
+  const dimensions = Dimensions.get("window");
+
   const districtData = useMemo(() => {
-    const districtsAsArray = Object.keys(districtData_raw).map((key) => ({
+    const districtsAsArray = Object.keys(rawDistrictData).map((key) => ({
       name: key,
-      data: districtData_raw[key],
+      data: rawDistrictData[key],
     }));
 
     return districtsAsArray;
-  }, []);
+  }, [rawDistrictData]);
 
   const maxY = useMemo(() => {
     return d3.max(districtData, (district) => district.data[stat]);
-  }, [stat]);
+  }, [rawDistrictData, stat]);
 
   const colorize = useMemo(() => {
     const colorScale = d3
@@ -49,17 +110,7 @@ const MainScreen = ({ navigation }) => {
       .domain([0, maxY]);
 
     return colorScale;
-  });
-
-  const foobar_data = [
-    { label: "Sun", value: 1 },
-    { label: "Mon", value: 2 },
-    { label: "Tue", value: 2 },
-    { label: "Wed", value: 3 },
-    { label: "Thu", value: 8 },
-    { label: "Fri", value: 10 },
-    { label: "Sat", value: 5 },
-  ];
+  }, [rawDistrictData]);
 
   return (
     <Container>
@@ -72,7 +123,7 @@ const MainScreen = ({ navigation }) => {
           stat={stat}
         />
         <View style={{ height: 20 }} />
-        <BarChart data={foobar_data} round={10} unit="Number of Inputs" />
+        <BarChart userID={userID} round={10} unit="Number of Inputs" />
         <View style={styles.space} />
         {/* input button */}
         <TouchableOpacity

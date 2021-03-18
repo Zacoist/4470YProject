@@ -147,7 +147,7 @@ const LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("Main")}
+          onPress={() => navigation.navigate("Sign Up")}
           style={[
             styles.signIn,
             {
@@ -166,6 +166,28 @@ const LoginScreen = ({ navigation }) => {
             ]}
           >
             Don't have an account yet? Sign Up
+          </Text>
+        </TouchableOpacity>
+                <TouchableOpacity
+          onPress={() => navigation.navigate("Main")}
+          style={[
+            styles.signIn,
+            {
+              borderColor: "#0000FF",
+              borderWidth: 1,
+              marginTop: 15,
+            },
+          ]}
+        >
+          <Text
+            style={[
+              styles.textSign,
+              {
+                color: "#0000FF",
+              },
+            ]}
+          >
+            Testing
           </Text>
         </TouchableOpacity>
       </View>
