@@ -13,6 +13,7 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 
 import AchievementsScreen from "../screens/AchievementsScreen";
 import CreditsScreen from "../screens/CreditsScreen";
+import HelpScreen from "../screens/HelpScreen";
 import HomeScreen from "../screens/HomeScreen";
 import InputScreen from "../screens/InputScreen";
 import LeaderboardScreen from "../screens/LeaderboardScreen";
@@ -110,6 +111,36 @@ const CreditsStackNavigator = ({ navigation }) => {
       <Stack.Screen
         name="Credits"
         component={CreditsScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#56C568",
+          },
+          headerTintColor: "white",
+          headerLeft: () => (
+            // Hamburger Button
+            <Button
+              primary
+              padding
+              marginHorizontal
+              color="#56C568"
+              onPress={() => navigation.openDrawer()}
+            >
+              <Feather name="menu" color="white" size={20} />
+            </Button>
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+/* help stack */
+const HelpStackNavigator = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Help"
+        component={HelpScreen}
         options={{
           headerStyle: {
             backgroundColor: "#56C568",
@@ -401,6 +432,12 @@ const DrawerContent = (props) => {
         icon={() => <AntDesign name="logout" color="black" size={16} />}
       />
       <DrawerItem
+        label="Help"
+        labelStyle={{ color: "#000000" }}
+        onPress={() => props.navigation.navigate("Help")}
+        icon={() => <AntDesign name="info" color="black" size={16} />}
+      />
+      <DrawerItem
         label="Credits"
         labelStyle={{ color: "#000000" }}
         onPress={() => props.navigation.navigate("Credits")}
@@ -414,6 +451,7 @@ export {
   AchievementsStackNavigator,
   CreditsStackNavigator,
   DrawerContent,
+  HelpStackNavigator,
   HomeStackNavigator,
   InputStackNavigator,
   LeaderboardStackNavigator,

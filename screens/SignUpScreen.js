@@ -8,7 +8,9 @@ import {
   TextInput,
 } from "react-native";
 import { AntDesign, Feather } from "@expo/vector-icons";
+import DropDownPicker from 'react-native-dropdown-picker';
 import firebase from "../firebase";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const SignUpScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
@@ -101,6 +103,7 @@ const SignUpScreen = ({ navigation }) => {
     });
   };
 
+//Function adds the user's ID, name, address, email and password into the database
   const writeUserData = (userID, fullname, address, email, password) => {
     firebase
       .database()
@@ -113,24 +116,51 @@ const SignUpScreen = ({ navigation }) => {
       });
   };
 
+//Function adds the weekly input for the user
+  const writeWeekData = (userID) => {
+    firebase
+      .database()
+      .ref("users/" + userID + "/weekly_inputs")
+      .set({
+        monday: 0,
+        tuesday: 0,
+        wednesday: 0,
+        thursday: 0,
+        friday: 0,
+        saturday: 0,
+        sunday: 0,
+      });
+  };
+
+  //Function adds the weekly input for the user
+  const writeCompostData = (userID) => {
+    firebase
+      .database()
+      .ref("users/" + userID + "/compostdata")
+      .set({
+        totalcomposts: 0,
+      });
+  };
+
   return (
-    <View style={(styles.container, styles.footer)}>
+      <KeyboardAwareScrollView>
+   <View style={(styles.container, styles.footer)}>
       {/* fullname input */}
       <Text style={styles.text_footer}>Fullname</Text>
-      <View style={styles.action}>
-        <AntDesign name="user" color="#05375a" size={30} />
-        <TextInput
-          placeholder="Firstname Lastname"
-          style={styles.textInput}
-          autoCapitalize="none"
-          onChangeText={(val) => nameInputChange(val)}
-        />
-        {data.check_nameInputChange ? (
-          <Feather name="check-circle" color="green" size={20} />
-        ) : null}
-      </View>
+        <View style={styles.action}>
+            <AntDesign name="user" color="#05375a" size={30} />
+            <TextInput
+            placeholder="Firstname Lastname"
+            style={styles.textInput}
+            autoCapitalize="none"
+            onChangeText={(val) => nameInputChange(val)}
+            />
+            {data.check_nameInputChange ? (
+            <Feather name="check-circle" color="green" size={20} />
+            ) : null}
+        </View>
 
-      {/* address input */}
+      {/* location input */}
       <Text
         style={[
           styles.text_footer,
@@ -139,18 +169,61 @@ const SignUpScreen = ({ navigation }) => {
           },
         ]}
       >
-        Address
+        Location
       </Text>
-      <View style={styles.action}>
-        <Feather name="map-pin" color="#05375a" size={30} />
-        <TextInput
-          placeholder="Select a location"
-          style={styles.textInput}
-          autoCapitalize="none"
-          onChangeText={(val) => addressInputChange(val)}
+        <DropDownPicker
+            items={[
+                {label: 'Airport', value: 'Airport'},
+                {label: 'Argyle', value: 'Argyle'},
+                {label: 'Bostwick', value: 'Bostwick'},
+                {label: 'Bradley', value: 'Bradley'},
+                {label: 'Byron', value: 'Byron'},
+                {label: 'Carling', value: 'Carling'},
+                {label: 'Central London', value: 'Central London'},
+                {label: 'Crumlin', value: 'Crumlin'},
+                {label: 'East London', value: 'East London'},
+                {label: 'Fanshawe', value: 'Fanshawe'},
+                {label: 'Fow Hollow', value: 'Fow Hollow'},
+                {label: 'Glanworth', value: 'Glanworth'},
+                {label: 'Glen Cairn', value: 'Glen Cairn'},
+                {label: 'Hamilton Road', value: 'Hamilton Road'},
+                {label: 'Highbury', value: 'Highbury'},
+                {label: 'Highland', value: 'Highland'},
+                {label: 'Huron Heights', value: 'Huron Heights'},
+                {label: 'Hyde Park', value: 'Hyde Park'},
+                {label: 'Jackson', value: 'Jackson'},
+                {label: 'Lambeth', value: 'Lambeth'},
+                {label: 'Longwoods', value: 'Longwoods'},
+                {label: 'Masonville', value: 'Masonville'},
+                {label: 'Medway', value: 'Medway'},
+                {label: 'North London', value: 'North London'},
+                {label: 'Oakridge', value: 'Oakridge'},
+                {label: 'Old Victoria', value: 'Old Victoria'},
+                {label: 'River Bend', value: 'River Bend'},
+                {label: 'Sharon Creek', value: 'Sharon Creek'},
+                {label: 'South London', value: 'South London'},
+                {label: 'Southcrest', value: 'Southcrest'},
+                {label: 'Stoney Creek', value: 'Stoney Creek'},
+                {label: 'Stoneybrook', value: 'Stoneybrook'},
+                {label: 'Sunningdale', value: 'Sunningdale'},
+                {label: 'Talbot', value: 'Talbot'},
+                {label: 'Tempo', value: 'Tempo'},
+                {label: 'Uplands', value: 'Uplands'},
+                {label: 'West London', value: 'West London'},
+                {label: 'Westminister', value: 'Westminister'},
+                {label: 'Westmount', value: 'Westmount'},
+                {label: 'White Oaks', value: 'White Oaks'},
+                {label: 'Woodhull', value: 'Woodhull'},
+            ]}
+            defaultValue={'Airport'}
+            containerStyle={{height: 50}}
+            style={{backgroundColor: '#fafafa'}}
+            itemStyle={{
+                justifyContent: 'flex-start'
+            }}
+            dropDownStyle={{backgroundColor: '#fafafa'}}
+            onChangeItem={(val) => addressInputChange(val.value)}
         />
-        <Feather name="map" color="grey" size={20} />
-      </View>
 
       {/* email text input  */}
       <Text
@@ -256,6 +329,8 @@ const SignUpScreen = ({ navigation }) => {
                       data.email,
                       data.password
                     );
+                    writeWeekData(firebase.auth().currentUser.uid);
+                    writeCompostData(firebase.auth().currentUser.uid);
                     console.log("User account created & signed in!");
                     //go to main screen when finish signing up
                     navigation.navigate("Main");
@@ -302,7 +377,7 @@ const SignUpScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("Main")}
+          onPress={() => navigation.navigate("Login")}
           style={[
             styles.signIn,
             {
@@ -324,7 +399,9 @@ const SignUpScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </View>
+       </KeyboardAwareScrollView>
+
   );
 };
 

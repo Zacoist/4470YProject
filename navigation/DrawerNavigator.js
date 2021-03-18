@@ -5,6 +5,7 @@ import {
   AchievementsStackNavigator,
   CreditsStackNavigator,
   DrawerContent,
+  HelpStackNavigator,
   HomeStackNavigator,
   InputStackNavigator,
   LeaderboardStackNavigator,
@@ -36,6 +37,7 @@ const DrawerNavigator = () => {
         component={AchievementsStackNavigator}
       />
       <Drawer.Screen name="Settings" component={SettingsStackNavigator} />
+      <Drawer.Screen name="Help" component={HelpStackNavigator} />
       <Drawer.Screen name="Credits" component={CreditsStackNavigator} />
     </Drawer.Navigator>
   );

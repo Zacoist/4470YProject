@@ -1,7 +1,17 @@
 import React, { PureComponent } from "react";
+import { ActivityIndicator } from "react-native";
 import { Svg, G, Line, Rect, Text } from "react-native-svg";
 import * as d3 from "d3";
 
+const DAYS_OF_WEEK = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
 const GRAPH_MARGIN = 20;
 const GRAPH_BAR_WIDTH = 8;
 const colors = {
@@ -10,13 +20,52 @@ const colors = {
 };
 
 export default class BarChart extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { isLoading: true };
+  }
+
+  componentDidMount() {
+    return fetch(
+      "https://compostapp-28145-default-rtdb.firebaseio.com/users/" +
+        this.props.userID +
+        "/weekly_inputs.json"
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        var userData = [];
+
+        DAYS_OF_WEEK.forEach((day) => {
+          userData.push({
+            label: day.substring(0, 3),
+            value: responseJson[day],
+          });
+        });
+
+        this.setState(
+          {
+            isLoading: false,
+            dataSource: userData,
+          },
+          function () {}
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
+    if (this.state.isLoading) {
+      return <ActivityIndicator />;
+    }
+
     // Dimensions
     const SVGHeight = 250;
     const SVGWidth = 400;
     const graphHeight = SVGHeight - 2 * GRAPH_MARGIN;
     const graphWidth = SVGWidth - 2 * GRAPH_MARGIN;
-    const data = this.props.data;
+    const data = this.state.dataSource;
 
     // X scale point
     const xDomain = data.map((item) => item.label);
