@@ -15,10 +15,36 @@ import firebase from "../firebase";
 
 import ItemSelect from "../components/InputScreen/ItemSelect";
 import { style } from "d3-selection";
+import { now } from "d3-timer";
+
+var days = [
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+];
 
 const InputScreen = () => {
   const [isInputMode, setIsInputMode] = useState(false);
   const [itemList, setItemList] = useState([]);
+
+  const getProgress = () => {
+    let green = 0;
+    let brown = 0;
+    for (let i = 0; i < itemList.length; i++) {
+      let ctype = itemList[i].compostType;
+      if (ctype == "green") {
+        green++;
+      } else brown++;
+    }
+
+    if (green > 0) return green / (green + brown);
+    else if (brown > 0 && green == 0) return -1;
+    else return 0;
+  };
 
   const cancelItemSelection = () => {
     setIsInputMode(false);
@@ -37,57 +63,130 @@ const InputScreen = () => {
     });
   };
 
+  {
+    /*returns sum of weights and methane weights of items*/
+  }
+  const getWeights = () => {
+    weight = 0;
+    methaneWeight = 0;
+    for (i = 0; i < itemList.length; i++) {
+      weight += itemList[i].weight;
+      methaneWeight += itemList[i].methaneWeight;
+    }
+
+    return { weight, methaneWeight };
+  };
+
+  const confirmItemsHandler = () => {
+    var uid = firebase.auth().currentUser.uid;
+    var day = days[new Date().getDay()];
+
+    var weights = getWeights();
+    var localWeight = weights.weight;
+    var localMethaneWeight = weights.methaneWeight;
+
+    var compostDataRef = firebase
+      .database()
+      .ref("users/" + uid + "/compostdata");
+
+    var dailyInputRef = firebase
+      .database()
+      .ref("users/" + uid + "/weekly_inputs/" + day);
+
+    var fruitRef = firebase.database().ref("compost-items");
+    console.log(fruitRef);
+
+    compostDataRef.once("value", async (snapshot) => {
+      {
+        /** increment total composts */
+      }
+      var compostNum = snapshot.val().totalcomposts;
+      var weight = snapshot.val().weight;
+      var methaneWeight = snapshot.val().methaneWeight;
+      await compostDataRef.update({
+        totalcomposts: compostNum + 1,
+        weight: weight + localWeight,
+        methaneWeight: methaneWeight + localMethaneWeight,
+      });
+    });
+
+    dailyInputRef.once("value", async (snapshot) => {
+      var dailyNum = snapshot.val();
+      console.log(dailyNum);
+    });
+
+    setItemList([]);
+  };
+
   return (
-    <View>
-      <View>
-        <Text style={styles.headerText}>Log Compost</Text>
-      </View>
-      <View>
-        <FlatList
-          data={itemList}
-          contentContainerStyle={{ alignItems: "center" }}
-          renderItem={(itemData) => (
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View style={styles.itemContainer}>
-                <View style={{ margin: 5 }}>
-                  <Image
-                    style={{
-                      flex: 1,
-                      width: 50,
-                      height: 50,
-                      resizeMode: "contain",
-                    }}
-                    source={{ uri: itemData.item.image }}
-                  />
-                  <Text>{itemData.item.name}</Text>
-                </View>
-              </View>
-              <TouchableOpacity
-                style={styles.removeItemButton}
-                onPress={() => removeItemHandler(itemData.item.key)}
-              >
-                <Text style={styles.addItemButtonText}>-</Text>
-              </TouchableOpacity>
+    <FlatList
+      ListHeaderComponent={
+        <View>
+          <View>
+            <Text style={styles.headerText}>Log Compost</Text>
+          </View>
+          <View style={{ flex: 0 }}></View>
+        </View>
+      }
+      data={itemList}
+      contentContainerStyle={{ alignItems: "center" }}
+      renderItem={(itemData) => (
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={styles.itemContainer}>
+            <View style={{ margin: 5 }}>
+              <Image
+                style={{
+                  flex: 1,
+                  width: 50,
+                  height: 50,
+                  resizeMode: "contain",
+                }}
+                source={{ uri: itemData.item.image }}
+              />
+              <Text>{itemData.item.name}</Text>
             </View>
-          )}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.addItemButton}
-          onPress={() => setIsInputMode(true)}
-        >
-          <Text style={styles.addItemButtonText}>Add Item</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <ItemSelect
-          visible={isInputMode}
-          onCancel={cancelItemSelection}
-          onAddItem={addItem}
-        />
-      </View>
-    </View>
+          </View>
+          <TouchableOpacity
+            style={styles.removeItemButton}
+            onPress={() => removeItemHandler(itemData.item.key)}
+          >
+            <Text style={styles.addItemButtonText}>-</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      ListFooterComponent={
+        <View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.addItemButton}
+              onPress={() => setIsInputMode(true)}
+            >
+              <Text style={styles.addItemButtonText}>Add Item</Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <ItemSelect
+              visible={isInputMode}
+              onCancel={cancelItemSelection}
+              onAddItem={addItem}
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity
+              style={[styles.addItemButton, { marginBottom: "10%" }]}
+              onPress={confirmItemsHandler}
+            >
+              <Text style={styles.addItemButtonText}>Confirm</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      }
+    />
   );
 };
 
@@ -125,7 +224,7 @@ const styles = StyleSheet.create({
   addItemButton: {
     backgroundColor: "#56C568",
     height: 40,
-    width: "40%",
+    width: 200,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -133,7 +232,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   addItemButtonText: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     color: "white",
   },

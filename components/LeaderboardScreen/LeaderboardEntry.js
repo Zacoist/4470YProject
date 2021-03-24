@@ -1,3 +1,4 @@
+import { rollups } from "d3-array";
 import React, { useState } from "react";
 import {
   View,
@@ -34,6 +35,7 @@ const LeaderboardEntry = (props) => {
   return (
     <View style={[styles.container, getStyle()]}>
       <Text style={styles.textContainer}>{props.rank}</Text>
+      <Text style={styles.textContainer}>{props.location}</Text>
       <Text style={[styles.textContainer, { textAlign: "center" }]}>
         {props.name}
       </Text>
