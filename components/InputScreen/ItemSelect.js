@@ -9,14 +9,27 @@ import {
   FlatList,
 } from "react-native";
 
+import firebase from "../../firebase";
+
 const ItemSelect = (props) => {
-  const [itemList, setItemList] = useState(require("./FruitList.json"));
+  {
+    /** pull compost item data from database */
+  }
+
+  const setList = (category) => {
+    var listRef = firebase.database().ref("compost-items/" + category);
+    listRef.once("value", async (snapshot) => {
+      setItemList(snapshot.val());
+    });
+  };
+
   {
     /** determines whether confirm button is disabled
     button is enabled once an item is selected */
   }
   const [isDisabled, setIsDisabled] = useState(true);
   const [selectedItem, setSelectedItem] = useState("");
+  const [itemList, setItemList] = useState(() => setList("fruit"));
 
   const selectItem = (item) => {
     setIsDisabled(false);
@@ -33,19 +46,19 @@ const ItemSelect = (props) => {
       <View style={styles.categoryContainer}>
         <TouchableOpacity
           style={styles.category}
-          onPress={() => setItemList(require("./FruitList.json"))}
+          onPress={() => setItemList(setList("fruit"))}
         >
           <Text style={styles.categoryText}>Fruit</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.category}
-          onPress={() => setItemList(require("./VegetableList.json"))}
+          onPress={() => setItemList(setList("vegetable"))}
         >
           <Text style={styles.categoryText}>Vegetable</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.category}
-          onPress={() => setItemList(require("./OtherCompostList.json"))}
+          onPress={() => setItemList(setList("other"))}
         >
           <Text style={styles.categoryText}>Other</Text>
         </TouchableOpacity>

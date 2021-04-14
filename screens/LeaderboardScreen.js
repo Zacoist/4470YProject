@@ -1,21 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, FlatList, ScrollView } from "react-native";
 import LeaderboardEntry from "../components/LeaderboardScreen/LeaderboardEntry";
+import firebase from "../firebase";
 
 const LeaderboardScreen = () => {
   var rank = 0;
-  const [topUserList, setTopUserList] = useState([
-    { placement: "first", rank: ++rank, key: rank.toString() },
-    { placement: "second", rank: ++rank, key: rank.toString() },
-    { placement: "third", rank: ++rank, key: rank.toString() },
-    { placement: "", rank: ++rank, key: rank.toString() },
-    { placement: "", rank: ++rank, key: rank.toString() },
-    { placement: "", rank: ++rank, key: rank.toString() },
-    { placement: "", rank: ++rank, key: rank.toString() },
-    { placement: "", rank: ++rank, key: rank.toString() },
-    { placement: "", rank: ++rank, key: rank.toString() },
-    { placement: "", rank: ++rank, key: rank.toString() },
-  ]);
+  const [topUserList, setTopUserList] = useState([]);
+
+  useEffect(() => {
+    const getTopUsers = async () => {
+      topUsers = [];
+
+      for (var i = 1; i <= 3; i++) {
+        var pos = "";
+        switch (i) {
+          case 1:
+            pos = "first";
+            break;
+          case 2:
+            pos = "second";
+            break;
+          case 3:
+            pos = "third";
+            break;
+        }
+
+        currUser = {};
+        var leaderboardRef = firebase.database().ref("leaderboard/" + pos);
+        var snapshot = await leaderboardRef.once("value");
+
+        currUser.rank = i;
+        currUser.loc = snapshot.val().location;
+        currUser.name = snapshot.val().name;
+        currUser.score = snapshot.val().score;
+
+        topUsers.push(currUser);
+      }
+
+      setTopUserList(topUsers);
+    };
+    getTopUsers();
+  }, []);
 
   const getUser = (rank) => {
     {
@@ -48,23 +73,14 @@ const LeaderboardScreen = () => {
       renderItem={(itemData) => (
         <View style={styles.center}>
           <LeaderboardEntry
-            name="Name"
-            score="Score"
+            name={itemData.item.name}
+            score={itemData.item.score}
             rank={itemData.item.rank}
+            location={itemData.item.loc}
             isUser={false}
           />
         </View>
       )}
-      ListFooterComponent={
-        <View style={styles.userScore}>
-          <LeaderboardEntry
-            name="You"
-            score={getScore()}
-            rank={getRank()}
-            isUser={true}
-          />
-        </View>
-      }
     />
   );
 };
