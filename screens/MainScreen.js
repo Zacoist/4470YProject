@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import BarChart from "../components/BarChart";
-
+import Weather from "../components/Weather";
 //worldmap
 import Map from "../components/Map";
 
@@ -115,6 +115,9 @@ const MainScreen = ({ navigation }) => {
   return (
     <Container>
       <View>
+        <View>
+          <Weather />
+        </View>
         <View style={{ height: 20 }} />
         <Map
           dimensions={dimensions}
