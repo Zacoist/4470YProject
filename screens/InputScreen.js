@@ -16,7 +16,6 @@ import firebase from "../firebase";
 import ItemSelect from "../components/InputScreen/ItemSelect";
 import { style } from "d3-selection";
 import { now } from "d3-timer";
-
 var days = [
   "sunday",
   "monday",
@@ -26,7 +25,6 @@ var days = [
   "friday",
   "saturday",
 ];
-
 const InputScreen = () => {
   const [isInputMode, setIsInputMode] = useState(false);
   const [itemList, setItemList] = useState([]);
@@ -80,7 +78,6 @@ const InputScreen = () => {
   const confirmItemsHandler = () => {
     var uid = firebase.auth().currentUser.uid;
     var day = days[new Date().getDay()];
-
     var weights = getWeights();
     var localWeight = weights.weight;
     var localMethaneWeight = weights.methaneWeight;
@@ -91,18 +88,22 @@ const InputScreen = () => {
 
     var dailyInputRef = firebase
       .database()
-      .ref("users/" + uid + "/weekly_inputs/" + day);
+      .ref("users/" + uid + "/weekly_inputs");
 
     var fruitRef = firebase.database().ref("compost-items");
-    console.log(fruitRef);
 
     compostDataRef.once("value", async (snapshot) => {
       {
         /** increment total composts */
       }
-      var compostNum = snapshot.val().totalcomposts;
-      var weight = snapshot.val().weight;
-      var methaneWeight = snapshot.val().methaneWeight;
+      try {
+        var compostNum = snapshot.val().totalcomposts;
+        var weight = snapshot.val().weight;
+        var methaneWeight = snapshot.val().methaneWeight;
+      } catch (err) {
+        //You'll see the msg when signing up becaues of the delay it take when creating fullname record in database
+        console.log("Error:", err);
+      }
       await compostDataRef.update({
         totalcomposts: compostNum + 1,
         weight: weight + localWeight,
@@ -111,8 +112,15 @@ const InputScreen = () => {
     });
 
     dailyInputRef.once("value", async (snapshot) => {
-      var dailyNum = snapshot.val();
-      console.log(dailyNum);
+      try {
+        var dailyNum = snapshot.val()[day];
+      } catch (err) {
+        //You'll see the msg when signing up becaues of the delay it take when creating fullname record in database
+        console.log("Error:", err);
+      }
+      await dailyInputRef.update({
+        [day]: dailyNum + 1,
+      });
     });
 
     setItemList([]);
