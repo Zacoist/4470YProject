@@ -41,7 +41,7 @@ const MainScreen = ({ navigation }) => {
           console.error(error);
         }
       );
-  }, []);
+  }, [rawDistrictData]);
 
   const userID = firebase.auth().currentUser.uid;
 
