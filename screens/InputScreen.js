@@ -127,6 +127,18 @@ const InputScreen = () => {
           weight: weight + localWeight,
           methaneWeight: methaneWeight + localMethaneWeight,
         });
+        switch (compostNum) {
+          case 0:
+            alert("Congratulation! You've made your first compost!");
+            break;
+          case 4:
+            alert("Congratulation! You've made your fifth compost!");
+            break;
+          case 9:
+            alert("Congratulation! You've made your tenth compost!");
+            break;
+          default:
+        }
       } catch (err) {
         //You'll see the msg when signing up becaues of the delay it take when creating fullname record in database
         console.log("Error:", err);

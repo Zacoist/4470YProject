@@ -168,7 +168,7 @@ const LoginScreen = ({ navigation }) => {
             Don't have an account yet? Sign Up
           </Text>
         </TouchableOpacity>
-                <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate("Main")}
           style={[
             styles.signIn,
@@ -189,7 +189,7 @@ const LoginScreen = ({ navigation }) => {
           >
             Testing
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
