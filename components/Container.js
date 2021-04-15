@@ -32,7 +32,7 @@ export default class Container extends React.Component {
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="light-content" backgroundColor="#468189" />
         <ScrollView
-          style={{ flex: 1 }}
+          //   style={{ flex: 1 }}
           contentContainerStyle={styles.scrollview}
           scrollEnabled={scrollEnabled}
           onContentSizeChange={this.onContentSizeChange}
@@ -47,8 +47,10 @@ export default class Container extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "column",
   },
   scrollview: {
     flexGrow: 1,
+    justifyContent: "space-between",
   },
 });

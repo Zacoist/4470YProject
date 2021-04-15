@@ -114,49 +114,47 @@ const MainScreen = ({ navigation }) => {
 
   return (
     <Container>
+      <Weather />
+      <View style={styles.space} />
+      <Map
+        dimensions={dimensions}
+        data={districtData}
+        colorize={colorize}
+        stat={stat}
+      />
+      <View style={styles.space} />
       <View>
-        <View>
-          <Weather />
-        </View>
-        <View style={{ height: 20 }} />
-        <Map
-          dimensions={dimensions}
-          data={districtData}
-          colorize={colorize}
-          stat={stat}
-        />
-        <View style={{ height: 20 }} />
         <BarChart userID={userID} round={10} unit="Number of Inputs" />
-        <View style={styles.space} />
-        {/* input button */}
-        <TouchableOpacity
+      </View>
+      <View style={styles.space} />
+      {/* input button */}
+      <TouchableOpacity
+        style={[
+          styles.input,
+          {
+            borderColor: "#56C568",
+            borderWidth: 1,
+            backgroundColor: "#56C568",
+          },
+        ]}
+        onPress={() => navigation.navigate("Input")}
+      >
+        <Text
           style={[
-            styles.input,
+            styles.textSign,
             {
-              borderColor: "#56C568",
-              borderWidth: 1,
-              backgroundColor: "#56C568",
+              color: "white",
+              textAlign: "center",
+              fontSize: 18,
+              fontWeight: "bold",
             },
           ]}
-          onPress={() => navigation.navigate("Input")}
         >
-          <Text
-            style={[
-              styles.textSign,
-              {
-                color: "white",
-                textAlign: "center",
-                fontSize: 18,
-                fontWeight: "bold",
-              },
-            ]}
-          >
-            Input
-          </Text>
-        </TouchableOpacity>
-        <View style={{ height: 40 }} />
-        <Text style={styles.textcenter}>More coming soon!</Text>
-      </View>
+          Input
+        </Text>
+      </TouchableOpacity>
+      <View style={styles.space} />
+      <Text style={styles.textcenter}>More coming soon!</Text>
     </Container>
   );
 };

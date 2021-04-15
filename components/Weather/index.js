@@ -135,7 +135,7 @@ const Weather = () => {
   const [firstItem, ...restOfData] = data;
 
   return (
-    <View>
+    <View style={{ height: 190 }}>
       <ForcastDataWrapper>
         {renderForecastLocation(firstItem, location)}
         <ForcastDataList>

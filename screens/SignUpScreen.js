@@ -8,9 +8,9 @@ import {
   TextInput,
 } from "react-native";
 import { AntDesign, Feather } from "@expo/vector-icons";
-import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker from "react-native-dropdown-picker";
 import firebase from "../firebase";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const SignUpScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
@@ -103,7 +103,7 @@ const SignUpScreen = ({ navigation }) => {
     });
   };
 
-//Function adds the user's ID, name, address, email and password into the database
+  //Function adds the user's ID, name, address, email and password into the database
   const writeUserData = (userID, fullname, address, email, password) => {
     firebase
       .database()
@@ -116,7 +116,7 @@ const SignUpScreen = ({ navigation }) => {
       });
   };
 
-//Function adds the weekly input for the user
+  //Function adds the weekly input for the user
   const writeWeekData = (userID) => {
     firebase
       .database()
@@ -139,269 +139,270 @@ const SignUpScreen = ({ navigation }) => {
       .ref("users/" + userID + "/compostdata")
       .set({
         totalcomposts: 0,
+        methaneWeight: 0,
+        weight: 0,
       });
   };
 
   return (
-      <KeyboardAwareScrollView>
-   <View style={(styles.container, styles.footer)}>
-      {/* fullname input */}
-      <Text style={styles.text_footer}>Fullname</Text>
+    <KeyboardAwareScrollView>
+      <View style={(styles.container, styles.footer)}>
+        {/* fullname input */}
+        <Text style={styles.text_footer}>Fullname</Text>
         <View style={styles.action}>
-            <AntDesign name="user" color="#05375a" size={30} />
-            <TextInput
+          <AntDesign name="user" color="#05375a" size={30} />
+          <TextInput
             placeholder="Firstname Lastname"
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={(val) => nameInputChange(val)}
-            />
-            {data.check_nameInputChange ? (
+          />
+          {data.check_nameInputChange ? (
             <Feather name="check-circle" color="green" size={20} />
-            ) : null}
+          ) : null}
         </View>
 
-      {/* location input */}
-      <Text
-        style={[
-          styles.text_footer,
-          {
-            marginTop: 35,
-          },
-        ]}
-      >
-        Location
-      </Text>
+        {/* location input */}
+        <Text
+          style={[
+            styles.text_footer,
+            {
+              marginTop: 35,
+            },
+          ]}
+        >
+          Location
+        </Text>
         <DropDownPicker
-            items={[
-                {label: 'Airport', value: 'Airport'},
-                {label: 'Argyle', value: 'Argyle'},
-                {label: 'Bostwick', value: 'Bostwick'},
-                {label: 'Bradley', value: 'Bradley'},
-                {label: 'Byron', value: 'Byron'},
-                {label: 'Carling', value: 'Carling'},
-                {label: 'Central London', value: 'Central London'},
-                {label: 'Crumlin', value: 'Crumlin'},
-                {label: 'East London', value: 'East London'},
-                {label: 'Fanshawe', value: 'Fanshawe'},
-                {label: 'Fow Hollow', value: 'Fow Hollow'},
-                {label: 'Glanworth', value: 'Glanworth'},
-                {label: 'Glen Cairn', value: 'Glen Cairn'},
-                {label: 'Hamilton Road', value: 'Hamilton Road'},
-                {label: 'Highbury', value: 'Highbury'},
-                {label: 'Highland', value: 'Highland'},
-                {label: 'Huron Heights', value: 'Huron Heights'},
-                {label: 'Hyde Park', value: 'Hyde Park'},
-                {label: 'Jackson', value: 'Jackson'},
-                {label: 'Lambeth', value: 'Lambeth'},
-                {label: 'Longwoods', value: 'Longwoods'},
-                {label: 'Masonville', value: 'Masonville'},
-                {label: 'Medway', value: 'Medway'},
-                {label: 'North London', value: 'North London'},
-                {label: 'Oakridge', value: 'Oakridge'},
-                {label: 'Old Victoria', value: 'Old Victoria'},
-                {label: 'River Bend', value: 'River Bend'},
-                {label: 'Sharon Creek', value: 'Sharon Creek'},
-                {label: 'South London', value: 'South London'},
-                {label: 'Southcrest', value: 'Southcrest'},
-                {label: 'Stoney Creek', value: 'Stoney Creek'},
-                {label: 'Stoneybrook', value: 'Stoneybrook'},
-                {label: 'Sunningdale', value: 'Sunningdale'},
-                {label: 'Talbot', value: 'Talbot'},
-                {label: 'Tempo', value: 'Tempo'},
-                {label: 'Uplands', value: 'Uplands'},
-                {label: 'West London', value: 'West London'},
-                {label: 'Westminister', value: 'Westminister'},
-                {label: 'Westmount', value: 'Westmount'},
-                {label: 'White Oaks', value: 'White Oaks'},
-                {label: 'Woodhull', value: 'Woodhull'},
-            ]}
-            defaultValue={'Airport'}
-            containerStyle={{height: 50}}
-            style={{backgroundColor: '#fafafa'}}
-            itemStyle={{
-                justifyContent: 'flex-start'
-            }}
-            dropDownStyle={{backgroundColor: '#fafafa'}}
-            onChangeItem={(val) => addressInputChange(val.value)}
+          items={[
+            { label: "Airport", value: "Airport" },
+            { label: "Argyle", value: "Argyle" },
+            { label: "Bostwick", value: "Bostwick" },
+            { label: "Bradley", value: "Bradley" },
+            { label: "Byron", value: "Byron" },
+            { label: "Carling", value: "Carling" },
+            { label: "Central London", value: "Central London" },
+            { label: "Crumlin", value: "Crumlin" },
+            { label: "East London", value: "East London" },
+            { label: "Fanshawe", value: "Fanshawe" },
+            { label: "Fow Hollow", value: "Fow Hollow" },
+            { label: "Glanworth", value: "Glanworth" },
+            { label: "Glen Cairn", value: "Glen Cairn" },
+            { label: "Hamilton Road", value: "Hamilton Road" },
+            { label: "Highbury", value: "Highbury" },
+            { label: "Highland", value: "Highland" },
+            { label: "Huron Heights", value: "Huron Heights" },
+            { label: "Hyde Park", value: "Hyde Park" },
+            { label: "Jackson", value: "Jackson" },
+            { label: "Lambeth", value: "Lambeth" },
+            { label: "Longwoods", value: "Longwoods" },
+            { label: "Masonville", value: "Masonville" },
+            { label: "Medway", value: "Medway" },
+            { label: "North London", value: "North London" },
+            { label: "Oakridge", value: "Oakridge" },
+            { label: "Old Victoria", value: "Old Victoria" },
+            { label: "River Bend", value: "River Bend" },
+            { label: "Sharon Creek", value: "Sharon Creek" },
+            { label: "South London", value: "South London" },
+            { label: "Southcrest", value: "Southcrest" },
+            { label: "Stoney Creek", value: "Stoney Creek" },
+            { label: "Stoneybrook", value: "Stoneybrook" },
+            { label: "Sunningdale", value: "Sunningdale" },
+            { label: "Talbot", value: "Talbot" },
+            { label: "Tempo", value: "Tempo" },
+            { label: "Uplands", value: "Uplands" },
+            { label: "West London", value: "West London" },
+            { label: "Westminister", value: "Westminister" },
+            { label: "Westmount", value: "Westmount" },
+            { label: "White Oaks", value: "White Oaks" },
+            { label: "Woodhull", value: "Woodhull" },
+          ]}
+          defaultValue={"Airport"}
+          containerStyle={{ height: 50 }}
+          style={{ backgroundColor: "#fafafa" }}
+          itemStyle={{
+            justifyContent: "flex-start",
+          }}
+          dropDownStyle={{ backgroundColor: "#fafafa" }}
+          onChangeItem={(val) => addressInputChange(val.value)}
         />
 
-      {/* email text input  */}
-      <Text
-        style={[
-          styles.text_footer,
-          {
-            marginTop: 35,
-          },
-        ]}
-      >
-        Email
-      </Text>
-      <View style={styles.action}>
-        <AntDesign name="mail" color="#05375a" size={30} />
-        <TextInput
-          placeholder="Your Email"
-          style={styles.textInput}
-          autoCapitalize="none"
-          onChangeText={(val) => emailInputChange(val)}
-        />
-        {data.check_emailInputChange ? (
-          <Feather name="check-circle" color="green" size={20} />
-        ) : null}
-      </View>
-
-      {/* password text input */}
-      <Text
-        style={[
-          styles.text_footer,
-          {
-            marginTop: 35,
-          },
-        ]}
-      >
-        Password
-      </Text>
-      <View style={styles.action}>
-        <AntDesign name="lock" color="#05375a" size={30} />
-        <TextInput
-          placeholder="Your Password"
-          secureTextEntry={data.secureTextEntry ? true : false}
-          style={styles.textInput}
-          autoCapitalize="none"
-          onChangeText={(val) => handlePasswordChange(val)}
-        />
-        <TouchableOpacity onPress={updateSecureTextEntry}>
-          {data.secureTextEntry ? (
-            <Feather name="eye-off" color="grey" size={20} />
-          ) : (
-            <Feather name="eye" color="grey" size={20} />
-          )}
-        </TouchableOpacity>
-      </View>
-      {/* confirm password input */}
-      <Text
-        style={[
-          styles.text_footer,
-          {
-            marginTop: 35,
-          },
-        ]}
-      >
-        Confirm Password
-      </Text>
-      <View style={styles.action}>
-        <AntDesign name="lock" color="#05375a" size={30} />
-        <TextInput
-          placeholder="Confirm Your Password"
-          secureTextEntry={data.confirm_secureTextEntry ? true : false}
-          style={styles.textInput}
-          autoCapitalize="none"
-          onChangeText={(val) => handleConfirmPasswordChange(val)}
-        />
-        <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-          {data.confirm_secureTextEntry ? (
-            <Feather name="eye-off" color="grey" size={20} />
-          ) : (
-            <Feather name="eye" color="grey" size={20} />
-          )}
-        </TouchableOpacity>
-      </View>
-
-      {/* sign in & sign out buttons */}
-      <View style={styles.button}>
-        <TouchableOpacity
-          onPress={() =>
-            firebase
-              .auth()
-              .createUserWithEmailAndPassword(data.email, data.password)
-              .then(() => {
-                //login
-                firebase
-                  .auth()
-                  .signInWithEmailAndPassword(data.email, data.password)
-                  .then((userCredential) => {
-                    // Signed in
-                    var user = userCredential.user;
-                    //write to database
-                    writeUserData(
-                      firebase.auth().currentUser.uid,
-                      data.fullname,
-                      data.address,
-                      data.email,
-                      data.password
-                    );
-                    writeWeekData(firebase.auth().currentUser.uid);
-                    writeCompostData(firebase.auth().currentUser.uid);
-                    console.log("User account created & signed in!");
-                    //go to main screen when finish signing up
-                    navigation.navigate("Main");
-                  })
-                  //failed to login
-                  .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.log(error.code);
-                  });
-              })
-              //failed to sign up
-              .catch((error) => {
-                if (error.code === "auth/email-already-in-use") {
-                  console.log("That email address is already in use!");
-                }
-
-                if (error.code === "auth/invalid-email") {
-                  console.log("That email address is invalid!");
-                }
-                console.error(error);
-              })
-          }
+        {/* email text input  */}
+        <Text
           style={[
-            styles.signIn,
+            styles.text_footer,
             {
-              borderColor: "#56C568",
-              borderWidth: 1,
-              marginTop: 15,
-              backgroundColor: "#56C568",
+              marginTop: 35,
             },
           ]}
         >
-          <Text
-            style={[
-              styles.textSign,
-              {
-                color: "white",
-              },
-            ]}
-          >
-            Sign Up
-          </Text>
-        </TouchableOpacity>
+          Email
+        </Text>
+        <View style={styles.action}>
+          <AntDesign name="mail" color="#05375a" size={30} />
+          <TextInput
+            placeholder="Your Email"
+            style={styles.textInput}
+            autoCapitalize="none"
+            onChangeText={(val) => emailInputChange(val)}
+          />
+          {data.check_emailInputChange ? (
+            <Feather name="check-circle" color="green" size={20} />
+          ) : null}
+        </View>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Login")}
+        {/* password text input */}
+        <Text
           style={[
-            styles.signIn,
+            styles.text_footer,
             {
-              borderColor: "#56C568",
-              borderWidth: 1,
-              marginTop: 15,
+              marginTop: 35,
             },
           ]}
         >
-          <Text
+          Password
+        </Text>
+        <View style={styles.action}>
+          <AntDesign name="lock" color="#05375a" size={30} />
+          <TextInput
+            placeholder="Your Password"
+            secureTextEntry={data.secureTextEntry ? true : false}
+            style={styles.textInput}
+            autoCapitalize="none"
+            onChangeText={(val) => handlePasswordChange(val)}
+          />
+          <TouchableOpacity onPress={updateSecureTextEntry}>
+            {data.secureTextEntry ? (
+              <Feather name="eye-off" color="grey" size={20} />
+            ) : (
+              <Feather name="eye" color="grey" size={20} />
+            )}
+          </TouchableOpacity>
+        </View>
+        {/* confirm password input */}
+        <Text
+          style={[
+            styles.text_footer,
+            {
+              marginTop: 35,
+            },
+          ]}
+        >
+          Confirm Password
+        </Text>
+        <View style={styles.action}>
+          <AntDesign name="lock" color="#05375a" size={30} />
+          <TextInput
+            placeholder="Confirm Your Password"
+            secureTextEntry={data.confirm_secureTextEntry ? true : false}
+            style={styles.textInput}
+            autoCapitalize="none"
+            onChangeText={(val) => handleConfirmPasswordChange(val)}
+          />
+          <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+            {data.confirm_secureTextEntry ? (
+              <Feather name="eye-off" color="grey" size={20} />
+            ) : (
+              <Feather name="eye" color="grey" size={20} />
+            )}
+          </TouchableOpacity>
+        </View>
+
+        {/* sign in & sign out buttons */}
+        <View style={styles.button}>
+          <TouchableOpacity
+            onPress={() =>
+              firebase
+                .auth()
+                .createUserWithEmailAndPassword(data.email, data.password)
+                .then(() => {
+                  //login
+                  firebase
+                    .auth()
+                    .signInWithEmailAndPassword(data.email, data.password)
+                    .then((userCredential) => {
+                      // Signed in
+                      var user = userCredential.user;
+                      //write to database
+                      writeUserData(
+                        firebase.auth().currentUser.uid,
+                        data.fullname,
+                        data.address,
+                        data.email,
+                        data.password
+                      );
+                      writeWeekData(firebase.auth().currentUser.uid);
+                      writeCompostData(firebase.auth().currentUser.uid);
+                      console.log("User account created & signed in!");
+                      //go to main screen when finish signing up
+                      navigation.navigate("Main");
+                    })
+                    //failed to login
+                    .catch((error) => {
+                      var errorCode = error.code;
+                      var errorMessage = error.message;
+                      console.log(error.code);
+                    });
+                })
+                //failed to sign up
+                .catch((error) => {
+                  if (error.code === "auth/email-already-in-use") {
+                    console.log("That email address is already in use!");
+                  }
+
+                  if (error.code === "auth/invalid-email") {
+                    console.log("That email address is invalid!");
+                  }
+                  console.error(error);
+                })
+            }
             style={[
-              styles.textSign,
+              styles.signIn,
               {
-                color: "#56C568",
+                borderColor: "#56C568",
+                borderWidth: 1,
+                marginTop: 15,
+                backgroundColor: "#56C568",
               },
             ]}
           >
-            Already have an account? Log In
-          </Text>
-        </TouchableOpacity>
-      </View>
-      </View>
-       </KeyboardAwareScrollView>
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  color: "white",
+                },
+              ]}
+            >
+              Sign Up
+            </Text>
+          </TouchableOpacity>
 
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Login")}
+            style={[
+              styles.signIn,
+              {
+                borderColor: "#56C568",
+                borderWidth: 1,
+                marginTop: 15,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  color: "#56C568",
+                },
+              ]}
+            >
+              Already have an account? Log In
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 

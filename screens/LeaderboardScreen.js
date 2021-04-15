@@ -9,7 +9,7 @@ const LeaderboardScreen = () => {
 
   useEffect(() => {
     const getTopUsers = async () => {
-      topUsers = [];
+      var topUsers = [];
 
       for (var i = 1; i <= 3; i++) {
         var pos = "";
@@ -25,14 +25,14 @@ const LeaderboardScreen = () => {
             break;
         }
 
-        currUser = {};
+        var currUser = {};
         var leaderboardRef = firebase.database().ref("leaderboard/" + pos);
         var snapshot = await leaderboardRef.once("value");
 
-        currUser.rank = i;
-        currUser.loc = snapshot.val().location;
-        currUser.name = snapshot.val().name;
-        currUser.score = snapshot.val().score;
+        currUser["rank"] = i;
+        currUser["loc"] = snapshot.val().location;
+        currUser["name"] = snapshot.val().name;
+        currUser["score"] = snapshot.val().score;
 
         topUsers.push(currUser);
       }
@@ -81,6 +81,7 @@ const LeaderboardScreen = () => {
           />
         </View>
       )}
+      keyExtractor={(item, index) => index.toString()}
     />
   );
 };
