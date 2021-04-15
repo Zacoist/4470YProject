@@ -22,51 +22,7 @@ import Container from "../components/Container";
 //LIBRARIES
 import * as d3 from "d3";
 
-//DATA
-// import districtData_raw from "../assets/data/district_data.json";
-
 import firebase from "../firebase";
-
-// function MyComponent() {
-//   const [error, setError] = useState(null);
-//   const [isLoaded, setIsLoaded] = useState(false);
-//   const [items, setItems] = useState([]);
-
-//   // Note: the empty deps array [] means
-//   // this useEffect will run once
-//   // similar to componentDidMount()
-//   useEffect(() => {
-//     fetch(
-//       "https://compostapp-28145-default-rtdb.firebaseio.com/district_data.json"
-//     )
-//       .then((res) => res.json())
-//       .then(
-//         (result) => {
-//           // var districtData = [];
-//           setIsLoaded(true);
-//           setItems(result);
-//           console.log(items);
-//         },
-//         // instead of a catch() block so that we don't swallow
-//         // exceptions from actual bugs in components.
-//         (error) => {
-//           setIsLoaded(true);
-//           setError(error);
-//         }
-//       );
-//   }, []);
-//   if (error) {
-//     console.log(error);
-//   } else if (!isLoaded) {
-//     console.log("not loaded");
-//   } else {
-//     console.log("error");
-//   }
-// }
-
-// fetch("https://compostapp-28145-default-rtdb.firebaseio.com/district_data.json")
-//   .then((response) => response.json())
-//   .then((data) => console.log(data));
 
 const MainScreen = ({ navigation }) => {
   const [rawDistrictData, setRawDistrictData] = useState({});

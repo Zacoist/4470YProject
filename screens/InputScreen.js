@@ -90,8 +90,29 @@ const InputScreen = () => {
       .database()
       .ref("users/" + uid + "/weekly_inputs");
 
-    var fruitRef = firebase.database().ref("compost-items");
+    var usersRef = firebase.database().ref("users/" + uid);
+    usersRef.once("value", async (snapshot) => {
+      try {
+        var userAddress = snapshot.val().address;
+      } catch (err) {
+        //You'll see the msg when signing up becaues of the delay it take when creating fullname record in database
+        console.log("Error:", err);
+      }
 
+      var districtDataRef = firebase
+        .database()
+        .ref("district_data/" + userAddress);
+
+      districtDataRef.once("value", async (childSnapshot) => {
+        var input = childSnapshot.val().input;
+
+        districtDataRef.update({
+          input: input + 1,
+        });
+      });
+    });
+
+    var fruitRef = firebase.database().ref("compost-items");
     compostDataRef.once("value", async (snapshot) => {
       {
         /** increment total composts */
@@ -100,28 +121,42 @@ const InputScreen = () => {
         var compostNum = snapshot.val().totalcomposts;
         var weight = snapshot.val().weight;
         var methaneWeight = snapshot.val().methaneWeight;
+
+        compostDataRef.update({
+          totalcomposts: compostNum + 1,
+          weight: weight + localWeight,
+          methaneWeight: methaneWeight + localMethaneWeight,
+        });
       } catch (err) {
         //You'll see the msg when signing up becaues of the delay it take when creating fullname record in database
         console.log("Error:", err);
       }
-      await compostDataRef.update({
-        totalcomposts: compostNum + 1,
-        weight: weight + localWeight,
-        methaneWeight: methaneWeight + localMethaneWeight,
-      });
     });
 
     dailyInputRef.once("value", async (snapshot) => {
       try {
         var dailyNum = snapshot.val()[day];
+
+        dailyInputRef.update({
+          [day]: dailyNum + 1,
+        });
       } catch (err) {
         //You'll see the msg when signing up becaues of the delay it take when creating fullname record in database
         console.log("Error:", err);
       }
-      await dailyInputRef.update({
-        [day]: dailyNum + 1,
-      });
     });
+
+    // dailyInputRef.once("value", async (snapshot) => {
+    //   try {
+    //     var dailyNum = snapshot.val()[day];
+    //   } catch (err) {
+    //     //You'll see the msg when signing up becaues of the delay it take when creating fullname record in database
+    //     console.log("Error:", err);
+    //   }
+    //   await dailyInputRef.update({
+    //     [day]: dailyNum + 1,
+    //   });
+    // });
 
     setItemList([]);
   };
