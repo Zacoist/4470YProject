@@ -55,6 +55,36 @@ export default class BarChart extends React.PureComponent {
       });
   }
 
+  componentDidUpdate(prevProps) {
+    return fetch(
+      "https://compostapp-28145-default-rtdb.firebaseio.com/users/" +
+        this.props.userID +
+        "/weekly_inputs.json"
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        var userData = [];
+
+        DAYS_OF_WEEK.forEach((day) => {
+          userData.push({
+            label: day.substring(0, 3),
+            value: responseJson[day],
+          });
+        });
+
+        this.setState(
+          {
+            isLoading: false,
+            dataSource: userData,
+          },
+          function () {}
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
     if (this.state.isLoading) {
       return <ActivityIndicator />;
